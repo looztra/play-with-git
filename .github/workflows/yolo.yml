@@ -1,0 +1,35 @@
+---
+name: "Build"
+on:
+  push:
+    branches:
+      - main
+      - maintenance/*
+    tags:
+      - "v*.*.*"
+  pull_request:
+    branches:
+      - main
+      - maintenance/*
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - "**.png"
+      - "**.gif"
+      - "**.svg"
+      - "**.jpeg"
+
+env:
+  PIP_CONFIG_FILE: /dev/null
+
+jobs:
+  root_checks:
+    name: Root checks
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+
+      - name: List files
+        run: |
+          find * -type f
