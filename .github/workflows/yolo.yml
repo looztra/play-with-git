@@ -30,6 +30,19 @@ jobs:
       - name: Checkout current branch
         uses: actions/checkout@v3
 
+      - name: Git current state
+        run: |
+          echo "Current git commit sha1 $(git rev-parse --short HEAD)"
+
+      - name: Github env vars
+        run: |
+          echo "See https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables"
+          echo "GITHUB_BASE_REF is [${GITHUB_BASE_REF}] (The name of the base ref or target branch of the pull request in a workflow run)"
+          echo "GITHUB_HEAD_REF is [${GITHUB_HEAD_REF}] (The head ref or source branch of the pull request in a workflow run)"
+          echo "GITHUB_REF is [${GITHUB_REF}] (The branch or tag ref that triggered the workflow run)"
+          echo "GITHUB_REF_NAME is [${GITHUB_REF_NAME}] (The branch or tag name that triggered the workflow run)"
+          echo "GITHUB_SHA is [${GITHUB_SHA}] (The commit SHA that triggered the workflow)"
+
       - name: List files
         run: |
           find * -type f
